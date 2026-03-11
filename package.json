@@ -1,0 +1,50 @@
+{
+  "name": "travel-planning-backend",
+  "version": "1.0.0",
+  "description": "Backend for Smart Travel Planning & Budget Management System",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest",
+    "build": "echo 'No build needed for Node.js'"
+  },
+  "keywords": [
+    "travel",
+    "budget",
+    "trip-planning",
+    "ai-assistant"
+  ],
+  "author": "Travel App Team",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@sendgrid/mail": "^8.1.6",
+    "aws-sdk": "^2.1500.0",
+    "axios": "^1.5.0",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.40.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.0.0",
+    "express-validator": "^7.0.0",
+    "firebase-admin": "^12.0.0",
+    "helmet": "^7.0.0",
+    "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.0.0",
+    "mongoose": "^7.5.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.6",
+    "openai": "^4.11.1",
+    "razorpay": "^2.9.1",
+    "redis": "^4.6.10",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
+  }
+}

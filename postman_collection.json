@@ -1,0 +1,63 @@
+{
+  "info": {
+    "name": "Travel Planning Backend - Postman Collection",
+    "description": "Postman collection containing all API endpoints with example request bodies (set {{baseUrl}} to http://localhost:5001)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5002" },
+    { "key": "authToken", "value": "" }
+  ],
+  "item": [
+    { "name": "Health", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/health" } } },
+    { "name": "Version", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/version" } } },
+
+    { "name": "Auth - Register", "request": { "method": "POST", "header": [{ "key": "Content-Type","value":"application/json" }], "url": { "raw": "{{baseUrl}}/api/auth/register" }, "body": { "mode": "raw", "raw": "{\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\",\n  \"confirmPassword\": \"password123\"\n}" } } },
+    { "name": "Auth - Login", "request": { "method": "POST", "header": [{ "key": "Content-Type","value":"application/json" }], "url": { "raw": "{{baseUrl}}/api/auth/login" }, "body": { "mode": "raw", "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}" } } },    { "name": "Auth - Verify OTP", "request": { "method": "POST", "header": [{ "key": "Content-Type","value":"application/json" }], "url": { "raw": "{{baseUrl}}/api/auth/verify-otp" }, "body": { "mode": "raw", "raw": "{\n  \"email\": \"test@example.com\",\n  \"otp\": \"123456\"\n}\" } } },    { "name": "Auth - Refresh", "request": { "method": "POST", "header": [{ "key": "Content-Type","value":"application/json" }], "url": { "raw": "{{baseUrl}}/api/auth/refresh" }, "body": { "mode": "raw", "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}" } } },
+    { "name": "Auth - Logout", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" } ], "url": { "raw": "{{baseUrl}}/api/auth/logout" } } },
+    { "name": "Auth - Me", "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" } ], "url": { "raw": "{{baseUrl}}/api/auth/me" } } },
+    { "name": "Auth - Request Password Reset", "request": { "method": "POST", "header": [{ "key": "Content-Type","value":"application/json" }], "url": { "raw": "{{baseUrl}}/api/auth/request-password-reset" }, "body": { "mode": "raw", "raw": "{\n  \"email\": \"test@example.com\"\n}" } } },
+    { "name": "Auth - Reset Password", "request": { "method": "POST", "header": [{ "key": "Content-Type","value":"application/json" }], "url": { "raw": "{{baseUrl}}/api/auth/reset-password" }, "body": { "mode": "raw", "raw": "{\n  \"resetToken\": \"REPLACE_WITH_TOKEN\",\n  \"password\": \"newPassword123\",\n  \"confirmPassword\": \"newPassword123\"\n}" } } },
+    { "name": "Auth - Change Password", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/auth/change-password" }, "body": { "mode": "raw", "raw": "{\n  \"currentPassword\": \"password123\",\n  \"newPassword\": \"newPassword123\",\n  \"confirmPassword\": \"newPassword123\"\n}" } } },
+
+    { "name": "Users - Get Profile", "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" } ], "url": { "raw": "{{baseUrl}}/api/users/profile" } } },
+    { "name": "Users - Update Profile", "request": { "method": "PUT", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/users/profile" }, "body": { "mode": "raw", "raw": "{\n  \"firstName\": \"Updated\",\n  \"lastName\": \"Name\",\n  \"bio\": \"Traveler\"\n}" } } },
+    { "name": "Users - Upload Avatar (form-data)", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" } ], "url": { "raw": "{{baseUrl}}/api/users/avatar" }, "body": { "mode": "formdata", "formdata": [ { "key": "avatar", "type": "file", "src": ["/path/to/avatar.jpg"] } ] } } },
+    { "name": "Users - Add Emergency Contact", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/users/emergency-contacts" }, "body": { "mode": "raw", "raw": "{\n  \"name\": \"John Doe\",\n  \"phone\": \"+1234567890\",\n  \"relationship\": \"friend\",\n  \"email\": \"john@example.com\"\n}" } } },
+
+    { "name": "Cities - List", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/cities" } } },
+    { "name": "Cities - By ID", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/cities/:cityId" } } },
+
+    { "name": "Places - List", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/tourist-places" } } },
+
+    { "name": "Food - List", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/food-spots" } } },
+
+    { "name": "Hotels - List", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/hotels" } } },
+
+    { "name": "Transport - Calculate Cost", "request": { "method": "POST", "header": [{ "key": "Content-Type","value":"application/json" }], "url": { "raw": "{{baseUrl}}/api/transport/calculate-cost" }, "body": { "mode": "raw", "raw": "{\n  \"transportType\": \"taxi\",\n  \"distance\": 50,\n  \"hours\": 2,\n  \"passengers\": 1\n}" } } },
+
+    { "name": "Trips - Create Trip", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/trips" }, "body": { "mode": "raw", "raw": "{\n  \"tripName\": \"Jaipur Weekend Trip\",\n  \"description\": \"A fun 3-day trip to Jaipur\",\n  \"city\": \"Jaipur\",\n  \"startDate\": \"2026-03-01\",\n  \"endDate\": \"2026-03-03\",\n  \"numberOfPeople\": 2,\n  \"tripType\": \"couple\",\n  \"totalBudget\": 30000,\n  \"budgetCategories\": {\n    \"accommodation\": { \"budget\": 9000 },\n    \"food\": { \"budget\": 6000 },\n    \"transport\": { \"budget\": 6000 },\n    \"activities\": { \"budget\": 6000 },\n    \"shopping\": { \"budget\": 2100 },\n    \"emergency\": { \"budget\": 900 }\n  }\n}" } } },
+    { "name": "Trips - List", "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" } ], "url": { "raw": "{{baseUrl}}/api/trips" } } },
+
+    { "name": "Budget - Estimate", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/budget/estimate" }, "body": { "mode": "raw", "raw": "{\n  \"city\": \"Jaipur\",\n  \"duration\": 3,\n  \"numberOfPeople\": 2,\n  \"tripType\": \"couple\"\n}" } } },
+
+    { "name": "Wallet - Create Wallet", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/trips/{{tripId}}/wallet" }, "body": { "mode": "raw", "raw": "{\n  \"currency\": \"INR\"\n}" } } },
+    { "name": "Wallet - Add Money", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/trips/:tripId/wallet/:tripId/add-money" }, "body": { "mode": "raw", "raw": "{\n  \"amount\": 100,\n  \"paymentMethod\": \"card\"\n}" } } },
+    { "name": "Wallet - Add Expense", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/trips/:tripId/wallet/:tripId/expenses" }, "body": { "mode": "raw", "raw": "{\n  \"amount\": 50,\n  \"category\": \"food\",\n  \"description\": \"Lunch\",\n  \"splitType\": \"equal\"\n}" } } },
+
+    { "name": "Reviews - Create", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/reviews" }, "body": { "mode": "raw", "raw": "{\n  \"entityType\": \"hotel\",\n  \"entityId\": \"hotelId123\",\n  \"rating\": 5,\n  \"title\": \"Great stay\",\n  \"description\": \"Very clean and helpful staff\"\n}" } } },
+
+    { "name": "Packing - Generate Checklist", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/packing/:tripId/generate" }, "body": { "mode": "raw", "raw": "{\n  \"season\": \"summer\",\n  \"tripType\": \"beach\",\n  \"interests\": [\"hiking\", \"swimming\"],\n  \"fetchWeather\": true\n}" } } },
+
+    { "name": "Notifications - Create", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/notifications" }, "body": { "mode": "raw", "raw": "{\n  \"type\": \"info\",\n  \"title\": \"Test notification\",\n  \"body\": \"This is a test\",\n  \"priority\": \"normal\"\n}" } } },
+
+    { "name": "AI - Recommendations", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/ai/recommendations" }, "body": { "mode": "raw", "raw": "{\n  \"city\": \"Barcelona\",\n  \"budget\": 1000,\n  \"days\": 3,\n  \"tripType\": \"leisure\"\n}" } } },
+    { "name": "AI - Ask Question", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/ai/ask" }, "body": { "mode": "raw", "raw": "{\n  \"question\": \"What should I pack for a 3-day trip to Paris in November?\"\n}" } } },
+
+    { "name": "QuickCommerce - Create Order", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" }, { "key": "Content-Type","value":"application/json" } ], "url": { "raw": "{{baseUrl}}/api/quick-commerce/orders" }, "body": { "mode": "raw", "raw": "{\n  \"items\": [ { \"productId\": \"prod1\", \"quantity\": 2 } ],\n  \"deliveryAddress\": { \"name\": \"Test\", \"address\": \"123 Street\", \"phone\": \"+1234567890\" },\n  \"paymentMethod\": \"wallet\"\n}" } } },
+
+    { "name": "Trip Memory - Upload Photo (form-data)", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" } ], "url": { "raw": "{{baseUrl}}/api/trip-memory/:tripId/memories/upload" }, "body": { "mode": "formdata", "formdata": [ { "key": "photo", "type": "file", "src": ["/path/to/photo.jpg"] }, { "key": "caption", "value": "Sunset", "type": "text" }, { "key": "location", "value": "Beach", "type": "text" } ] } } },
+
+    { "name": "Admin - Dashboard", "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{authToken}}" } ], "url": { "raw": "{{baseUrl}}/api/admin/dashboard" } } }
+  ]
+}
