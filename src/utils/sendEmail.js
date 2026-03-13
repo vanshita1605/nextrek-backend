@@ -1,21 +1,36 @@
-const sgMail = require("@sendgrid/mail");
+const sendEmail = require("./sendEmail");
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// OTP email
+const sendOTPEmail = async (to, otp) => {
+  const subject = "Verify your email - Nextrek";
 
-const sendEmail = async (to, subject, text) => {
-  try {
-    const msg = {
-      to: to,
-      from: process.env.SENDGRID_FROM_EMAIL,
-      subject: subject,
-      text: text,
-    };
+  const text = `
+Your OTP for Nextrek verification is: ${otp}
 
-    await sgMail.send(msg);
-    console.log("Email sent successfully");
-  } catch (error) {
-    console.log("SendGrid Error:", error.response?.body || error.message);
-  }
+This OTP will expire in 10 minutes.
+
+If you did not request this, please ignore this email.
+`;
+
+  await sendEmail(to, subject, text);
 };
 
-module.exports = sendEmail;
+// Welcome email
+const sendWelcomeEmail = async (to, name) => {
+  const subject = "Welcome to Nextrek 🎉";
+
+  const text = `
+Hi ${name},
+
+Your email has been verified successfully.
+
+Welcome to Nextrek 🚀
+`;
+
+  await sendEmail(to, subject, text);
+};
+
+module.exports = {
+  sendOTPEmail,
+  sendWelcomeEmail,
+};
