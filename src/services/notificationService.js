@@ -1,20 +1,14 @@
 // src/services/notificationService.js
 const admin = require('firebase-admin');
+const sgMail = require('@sendgrid/mail');
 const Notification = require('../models/Notification');
 const NotificationAlert = require('../models/NotificationAlert');
 const NotificationPreference = require('../models/NotificationPreference');
 const UserDevice = require('../models/UserDevice');
 const User = require('../models/User');
-const nodemailer = require('nodemailer');
 
-// Email transporter setup
-const emailTransporter = nodemailer.createTransport({
-  service: process.env.EMAIL_SERVICE || 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-});
+// SendGrid setup
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 class NotificationService {
   /**
@@ -215,14 +209,14 @@ class NotificationService {
         return { success: false, message: 'User or email not found' };
       }
 
-      const mailOptions = {
-        from: process.env.EMAIL_FROM || 'noreply@tripz.com',
+      const msg = {
         to: user.email,
+        from: process.env.EMAIL_FROM || 'noreply@tripz.com',
         subject: emailData.subject || emailData.title,
         html: this.generateEmailTemplate(emailData),
       };
 
-      await emailTransporter.sendMail(mailOptions);
+      await sgMail.send(msg);
 
       return {
         success: true,
