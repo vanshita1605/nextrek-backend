@@ -6,7 +6,7 @@ const sendEmail = async (to, subject, text) => {
   try {
     const msg = {
       to: to,
-      from: process.env.SENDGRID_EMAIL,
+      from: process.env.SENDGRID_FROM_EMAIL,
       subject: subject,
       text: text,
     };
