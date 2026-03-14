@@ -1,4 +1,4 @@
-const sendEmail = require("./sendEmail");
+const { sendEmail } = require("./email");
 
 // OTP email
 const sendOTPEmail = async (to, otp) => {

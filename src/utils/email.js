@@ -5,9 +5,14 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendEmail = async (to, subject, html) => {
   try {
+    const from = process.env.SENDGRID_FROM_EMAIL || process.env.EMAIL_FROM;
+    if (!from) {
+      throw new Error('Missing SENDGRID_FROM_EMAIL or EMAIL_FROM environment variable');
+    }
+
     const msg = {
       to,
-      from: `"NexTrek" <${process.env.EMAIL_FROM}>`,
+      from,
       subject,
       html,
     };
@@ -17,6 +22,9 @@ const sendEmail = async (to, subject, html) => {
     return true;
   } catch (error) {
     console.error('Email sending error:', error);
+    if (error.response && error.response.body) {
+      console.error('SendGrid response body:', error.response.body);
+    }
     return false;
   }
 };

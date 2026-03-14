@@ -405,11 +405,7 @@ exports.createNotification = async (req, res) => {
     if (channel === 'email') {
       const user = await User.findById(recipientId);
       if (user?.email) {
-        await emailService.sendEmail({
-          to: user.email,
-          subject: title,
-          html: `<p>${body}</p>`,
-        });
+        await emailService.sendEmail(user.email, title, `<p>${body}</p>`);
       }
     }
 

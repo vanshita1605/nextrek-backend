@@ -209,9 +209,10 @@ class NotificationService {
         return { success: false, message: 'User or email not found' };
       }
 
+      const from = process.env.SENDGRID_FROM_EMAIL || process.env.EMAIL_FROM || 'noreply@tripz.com';
       const msg = {
         to: user.email,
-        from: process.env.EMAIL_FROM || 'noreply@tripz.com',
+        from,
         subject: emailData.subject || emailData.title,
         html: this.generateEmailTemplate(emailData),
       };
