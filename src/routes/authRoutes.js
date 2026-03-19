@@ -47,7 +47,7 @@ router.post('/login', authLimiter, validateLogin, login);
  * @desc    Verify registration OTP and activate account
  * @access  Public
  */
-router.post('/verify-otp', authLimiter, validateVerifyOTP, verifyOTP);
+router.post('/verify-otp', validateVerifyOTP, verifyOTP);
 
 
 /**
@@ -55,7 +55,7 @@ router.post('/verify-otp', authLimiter, validateVerifyOTP, verifyOTP);
  * @desc    Resend verification OTP
  * @access  Public
  */
-router.post('/resend-otp', authLimiter, resendOTP);
+router.post('/resend-otp', resendOTP);
 
 
 /**
