@@ -7,18 +7,21 @@ const generalLimiter = rateLimit({
   message: 'Too many requests, please try again later',
   standardHeaders: true,
   legacyHeaders: false,
+  trustProxy: true,
 });
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5, // limit each IP to 5 requests per windowMs
   message: 'Too many authentication attempts',
+  trustProxy: true,
 });
 
 const apiLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
   max: 30, // limit each IP to 30 requests per minute
   message: 'Too many API requests',
+  trustProxy: true,
 });
 
 module.exports = { generalLimiter, authLimiter, apiLimiter };

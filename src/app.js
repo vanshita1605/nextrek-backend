@@ -45,6 +45,17 @@ const tripMemoryRoutes = require('./routes/tripMemoryRoutes');
 const app = express();
 
 // ============================================
+// PROXY CONFIGURATION
+// ============================================
+
+/**
+ * Trust proxy
+ * Enable this to trust X-Forwarded-For header when behind a reverse proxy
+ * This is essential for rate limiting and IP-based features to work correctly
+ */
+app.set('trust proxy', true);
+
+// ============================================
 // SECURITY MIDDLEWARE
 // ============================================
 

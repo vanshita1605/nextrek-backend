@@ -60,7 +60,13 @@ user.otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
 await user.save();
 
 // send original otp to email
-await sendOTPEmail(user.email, otp);
+const emailSent = await sendOTPEmail(user.email, otp);
+if (!emailSent) {
+  return res.status(500).json({
+    success: false,
+    message: 'Failed to send OTP email. Please try again.',
+  });
+}
 
     // do not issue tokens yet
     res.status(201).json({
